@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FF5722"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:src="@drawable/login_img"
+        android:scaleType="fitXY"
+        android:id="@+id/login_img"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_screen_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:id="@+id/input_container"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter verification code"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:id="@+id/inputTextOTP"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send to +91 6307371535"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="18sp"
+                android:id="@+id/inputTextNumber"/>
+
+            <com.chaos.view.PinView
+                android:id="@+id/pinview"
+                app:itemCount="6"
+                app:itemWidth="45dp"
+                app:itemHeight="45dp"
+                app:itemSpacing="8dp"
+                android:textStyle="bold"
+                app:cursorColor="#FF5722"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:itemBackground="@color/white"
+
+                android:layout_gravity="center"
+                android:inputType="number"
+                android:cursorVisible="true"
+                app:hideLineWhenFilled="false"
+                app:itemRadius="13dp"
+                style="@style/PinWidget.PinView"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:weightSum="2"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangular_shape_bg"
+                android:text="Get via SMS"
+                android:backgroundTint="#FF5722"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/getsms"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangular_shape_bg"
+                android:text="Get via Call"
+                android:layout_weight="1"
+                android:backgroundTint="#FF5722"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:id="@+id/getcall"/>
+
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:padding="15dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Updates on your order status"
+        android:textStyle="bold"
+        android:textSize="25sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Allow push notification to get real-time updates on your order status"
+            android:textSize="18sp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:src="@drawable/notication_man"
+            android:scaleType="fitXY"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnTurnOn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangular_shape_bg"
+            android:backgroundTint="#FF5722"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Turn on Notifiaction"/>
+
+        <TextView
+            android:id="@+id/btnNot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not Now"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textColor="#FF5722"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

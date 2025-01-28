@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/login_img"
+        android:id="@+id/login_img"/>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/account_details_conatiner"
+        android:padding="13dp"
+        android:layout_below="@+id/login_img">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACCOUNT"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:id="@+id/accountText"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login/Create Account to manage orders"
+            android:layout_below="@+id/accountText"
+            android:textColor="#88000000"
+            android:id="@+id/loginCreateText"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:layout_below="@+id/loginCreateText"
+            android:id="@+id/login_button"
+            android:layout_marginTop="6dp"
+            android:backgroundTint="#FF5722"/>
+
+        <TextView
+            android:layout_below="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="By clicking, I accept the term and condition and Privacy Policy"
+            android:textColor="#88000000"
+            android:layout_marginStart="3dp"
+            android:maxLines="1"/>
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_margin="13dp"
+        android:id="@+id/line_horizontal"
+        android:layout_below="@+id/account_details_conatiner"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_container"
+        android:padding="13dp"
+        android:layout_below="@+id/line_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/offers_img"
+            android:src="@drawable/special_offer"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offers"
+            android:layout_toEndOf="@+id/offers_img"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/black"
+            android:id="@+id/offers_text"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/go_icon"
+            android:src="@drawable/navigate_next_arrow"
+            android:layout_alignParentEnd="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#2E000000"
+           android:layout_marginTop="15dp"
+            android:id="@+id/line_offers"
+            android:layout_below="@+id/go_icon"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/feedback_bottom_container"
+        android:padding="13dp"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/bottom_container">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/email_icon"
+            android:src="@drawable/email_icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Feedback"
+            android:layout_toEndOf="@+id/email_icon"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/black"
+            android:id="@+id/feedback_text"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="App version 4.71.1(1311)"
+            android:layout_below="@+id/feedback_text"
+            android:layout_alignStart="@+id/feedback_text"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/next_icon"
+            android:src="@drawable/navigate_next_arrow"
+            android:layout_alignParentEnd="true"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
