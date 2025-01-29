@@ -58,14 +58,45 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:id="@+id/userName"
-
             android:hint="name"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:id="@+id/nameSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:weightSum="2"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/updateName"
+            android:layout_marginEnd="5dp"
+            android:layout_height="35dp"
+            android:textColor="@color/white"
+            android:background="#F74F00"
+            android:text="Update"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/nameCancel"
+            android:layout_marginStart="5dp"
+            android:layout_height="35dp"
+            android:text="Cancel"/>
+
+    </LinearLayout>
+
+
+
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userEmail"
+
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,16 +108,43 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:id="@+id/userEmail"
             android:layout_height="wrap_content" />
-
-
-
-
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:id="@+id/emailSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:weightSum="2"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/updateEmail"
+            android:layout_marginEnd="5dp"
+            android:layout_height="35dp"
+            android:textColor="@color/white"
+            android:background="#F74F00"
+            android:text="Update"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/cancelEmail"
+            android:layout_marginStart="5dp"
+            android:layout_height="35dp"
+            android:text="Cancel"/>
+
+    </LinearLayout>
+
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userMobile"
+
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,10 +156,38 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:id="@+id/userMobile"
+            android:maxLength="10"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:id="@+id/numberSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:weightSum="2"
+        android:padding="10dp"
+        android:orientation="horizontal">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/updateNumber"
+            android:layout_marginEnd="5dp"
+            android:layout_height="35dp"
+            android:textColor="@color/white"
+            android:background="#F74F00"
+            android:text="Update"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:layout_height="35dp"
+            android:text="Cancel"/>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"

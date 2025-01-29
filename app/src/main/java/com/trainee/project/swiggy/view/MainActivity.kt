@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.location.AddLocation
 import com.trainee.project.swiggy.profile.UserDeatails
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var profileBackground: LinearLayout
     lateinit var profileImg: ImageView
+    lateinit var addLocations: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottom_nav)
         profileBackground = findViewById(R.id.top_container_layout)
         profileImg = findViewById(R.id.profileImg)
+        addLocations = findViewById(R.id.addLocations)
 //        searchBar = findViewById(com.hbb20.R.id.search_bar)
 
         bottomNavigationView.setOnItemSelectedListener {
@@ -71,6 +74,11 @@ class MainActivity : AppCompatActivity() {
 
         profileImg.setOnClickListener {
             val intent = Intent(this@MainActivity, UserDeatails::class.java)
+            startActivity(intent)
+        }
+
+        addLocations.setOnClickListener {
+            val intent = Intent(this@MainActivity, AddLocation::class.java)
             startActivity(intent)
         }
 

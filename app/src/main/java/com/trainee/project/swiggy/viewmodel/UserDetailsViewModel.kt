@@ -38,4 +38,20 @@ class UserDetailsViewModel(application: Application) : AndroidViewModel(applicat
     fun getUserById(number: String): LiveData<UserDeatailsData> {
         return userrepository.getUserById(number)
     }
+
+
+
+    fun updateUserName(phoneNumber: String, updatedName: String) {
+        viewModelScope.launch {
+            userrepository.updateUserNameRepo(phoneNumber,updatedName)
+            getUserById(phoneNumber)
+        }
+    }
+
+    fun updateUserEmail(phoneNumber: String, updatedEmail: String) {
+        viewModelScope.launch {
+            userrepository.updateUserEmailRepo(phoneNumber,updatedEmail)
+            getUserById(phoneNumber)
+        }
+    }
 }

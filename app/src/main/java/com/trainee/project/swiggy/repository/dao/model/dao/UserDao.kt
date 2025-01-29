@@ -24,4 +24,10 @@ interface UserDao {
     fun isPhoneNumberExists(phoneNumber: String): LiveData<Boolean>
 
 
+    @Query("UPDATE USER_Details SET name = :name WHERE number = :number")
+    suspend fun updateUserNameDao(number: String, name: String)
+
+    @Query("UPDATE USER_Details SET email = :updatedEmail WHERE number = :phoneNumber")
+   suspend fun updateUserEmailDao(phoneNumber: String, updatedEmail: String)
+
 }

@@ -19,4 +19,12 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.isPhoneNumberExists(phoneNumber)
     }
 
+    suspend fun updateUserNameRepo(number: String, name: String){
+        return userDao.updateUserNameDao(number,name)
+    }
+
+    suspend fun updateUserEmailRepo(phoneNumber: String, updatedEmail: String) {
+        return userDao.updateUserEmailDao(phoneNumber,updatedEmail)
+    }
+
 }
