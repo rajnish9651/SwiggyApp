@@ -55,6 +55,9 @@
             android:name=".login.OtpVerificationActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".login.LoginActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

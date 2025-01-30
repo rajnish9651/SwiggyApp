@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.profile.UserDeatails
 import java.util.Locale
 
 class MyLocation(
@@ -135,7 +136,9 @@ class MyLocation(
                 getCurrentLocation()
             } else {
                 Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
-                permissionDeniedDialogBox()
+//                permissionDeniedDialogBox()
+                val intent = Intent(context, UserDeatails::class.java)
+                context.startActivity(intent)
             }
         }
     }

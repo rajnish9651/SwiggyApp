@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FF5722"
     android:orientation="vertical">
 
@@ -52,43 +52,43 @@
         android:background="@drawable/login_screen_bg">
 
         <LinearLayout
+            android:id="@+id/input_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
-            android:id="@+id/input_container"
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/inputTextMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enter your number"
                 android:fontFamily="@font/poppins_medium"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:text="Enter your number"
                 android:textColor="@color/black"
-                android:id="@+id/inputTextMobile"/>
-
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/outlinedTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mobile Number"
-                app:hintTextColor="#F44336"
-                app:cursorColor="#F44336"
-                app:boxStrokeColor="#F44336"
-                android:focusableInTouchMode="true"
                 android:focusable="true"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:focusableInTouchMode="true"
+                android:hint="Mobile Number"
+                app:boxStrokeColor="#F44336"
+                app:cursorColor="#F44336"
+                app:expandedHintEnabled="false"
+                app:hintTextColor="#F44336">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:id="@+id/mobileNumber"
-                   android:maxLength="10">
+                    android:maxLength="10">
 
                 </com.google.android.material.textfield.TextInputEditText>
 
@@ -100,25 +100,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
-            android:layout_alignParentBottom="true"
             android:padding="14dp">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continue"
                 android:background="@drawable/rectangular_shape_bg"
-                android:id="@+id/loginBtn"/>
+                android:text="Continue" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="By clicking, I accept the term of service and privacy policy"/>
-
+                android:text="By clicking, I accept the term of service and privacy policy" />
 
 
         </LinearLayout>

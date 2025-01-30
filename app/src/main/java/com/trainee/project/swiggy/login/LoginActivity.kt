@@ -16,7 +16,7 @@ import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.view.MainActivity
 import com.trainee.project.swiggy.viewmodel.UserDetailsViewModel
 
-class LoginLaunchActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     lateinit var loginBtn: AppCompatButton
     lateinit var mobileNumber: TextInputEditText
@@ -36,16 +36,14 @@ class LoginLaunchActivity : AppCompatActivity() {
         UserViewModel = ViewModelProvider(this)[UserDetailsViewModel::class.java]
         sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
 
-        val logout = getSharedPreferences("logOut", MODE_PRIVATE)
-
-        val isFirstTime = logout.getBoolean("isFirstTime", false)
+        /*val isFirstTime = sharedPreferences.getBoolean("isFirstTime", false)
 
         if (isFirstTime){
             var int=Intent(this, MainActivity::class.java)
             startActivity(int)
             finish()
         }
-
+*/
 
         loginBtn.setOnClickListener {
             val number = mobileNumber.text.toString().trim()
@@ -59,7 +57,7 @@ class LoginLaunchActivity : AppCompatActivity() {
                         if (!exists) {
                             // if the phone number does not exist insert the user details into the database
                             val intent = Intent(
-                                this@LoginLaunchActivity,
+                                this@LoginActivity,
                                 OtpVerificationActivity::class.java
                             )
                             intent.putExtra("phone", number)
@@ -74,9 +72,9 @@ class LoginLaunchActivity : AppCompatActivity() {
                             val editor = sharedPreferences.edit()
                             editor.putString("user_phone", number)
 
-                            editor.apply()
+                            editor.apply() // Store the phone number
 
-                            val intent = Intent(this@LoginLaunchActivity, MainActivity::class.java)
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
 
                         }
@@ -85,7 +83,7 @@ class LoginLaunchActivity : AppCompatActivity() {
                 }
 
             } else {
-
+                // Show an error message (optional, for better UX)
                 mobileNumber.error = "Please enter a valid 10-digit phone number"
             }
 
@@ -97,7 +95,7 @@ class LoginLaunchActivity : AppCompatActivity() {
             val editor = sharedPreferences.edit()
             editor.clear()
             editor.apply()
-            val intent = Intent(this@LoginLaunchActivity, MainActivity::class.java)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

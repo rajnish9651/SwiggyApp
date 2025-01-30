@@ -3,4 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_gray">#f9f9f9</color>
+
+
+    <color name="home_color">#ffeb3b</color>
+    <color name="work_color">#4caf50</color>
+    <color name="other_color">#2196f3</color>
+    <color name="default_card_background">#ffffff</color>
 </resources>

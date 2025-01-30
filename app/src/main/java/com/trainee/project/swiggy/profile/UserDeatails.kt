@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.cart.AddToCart
+import com.trainee.project.swiggy.login.LoginActivity
 import com.trainee.project.swiggy.login.LoginLaunchActivity
 import com.trainee.project.swiggy.viewmodel.UserDetailsViewModel
 
@@ -30,6 +31,16 @@ class UserDeatails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
+        val phoneNumber = sharedPreferences.getString("user_phone", null)
+        if (phoneNumber == null) {
+            // If no phone number found in SharedPreferences, redirect to login screen
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
         setContentView(R.layout.profile)
 
         userEatlists = findViewById(R.id.userEatlists)
@@ -44,8 +55,7 @@ class UserDeatails : AppCompatActivity() {
         userViewModel = ViewModelProvider(this)[UserDetailsViewModel::class.java]
 
 
-        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-        val phoneNumber = sharedPreferences.getString("user_phone", null)
+
 
 
         if (phoneNumber != null) {
@@ -80,9 +90,14 @@ class UserDeatails : AppCompatActivity() {
 
             logOut.setOnClickListener {
 
-                var intent = Intent(this@UserDeatails, LoginLaunchActivity::class.java)
+                val editor = sharedPreferences.edit()
+                editor.clear()
+                editor.apply()
+
+                var intent = Intent(this@UserDeatails, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
+
 
             }
 

@@ -60,11 +60,11 @@ class Notification : AppCompatActivity() {
 
     private fun redirectToNotificationSettings() {
         val intent: Intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // For Android Oreo and above
+
             Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
                 .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
         } else {
-            // For older Android versions
+
             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 .setData(Uri.parse("package:$packageName"))
         }
@@ -77,9 +77,6 @@ class Notification : AppCompatActivity() {
         if (!areNotificationsEnabled()) {
             redirectToNotificationSettings();
         } else {
-            val intent = Intent(this@Notification, MainActivity::class.java)
-            startActivity(intent)
-            finish()
 
         }
 

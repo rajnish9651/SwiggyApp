@@ -42,28 +42,15 @@ class HomeScreen : Fragment(), OnCityReceivedListener {
         // Inflate the search bar layout
         val searchBarView = inflater.inflate(R.layout.search_bar, container, false)
 
-//        current_location = view.findViewById(R.id.current_location)
-//        userDeatails = view.findViewById(R.id.profileImg)
-//        addLocation = view.findViewById(R.id.addLocations)
+
         foodDelivery = view.findViewById(R.id.card_food)
         instamart = view.findViewById(R.id.instamart)
         dineout = view.findViewById(R.id.dineout)
 
-        myLocation = activity?.let { MyLocation(it, this) }!!
+        myLocation = MyLocation(requireActivity(),this)
 
         myLocation.getCurrentLocation()
 
-//        userDeatails.setOnClickListener {
-//
-//            val intent = Intent(activity, UserDeatails::class.java)
-//            startActivity(intent)
-//
-//        }
-
-//        addLocation.setOnClickListener {
-//            val intent = Intent(activity, AddLocation::class.java)
-//            startActivity(intent)
-//        }
 
         foodDelivery.setOnClickListener {
             (activity as? MainActivity)?.bottomNavigationView?.selectedItemId = R.id.food
@@ -100,6 +87,8 @@ class HomeScreen : Fragment(), OnCityReceivedListener {
 //        current_location.text = currentLocation
         Log.d("HomeScreen", "City received: $currentLocation")
     }
+
+
 
 
 

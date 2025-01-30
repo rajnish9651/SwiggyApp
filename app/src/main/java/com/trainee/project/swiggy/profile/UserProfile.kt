@@ -111,6 +111,7 @@ class UserProfile : AppCompatActivity() {
             val updatedEmail = userEmail.text.toString()
             nameSection.visibility = View.GONE
             userViewModel.updateUserEmail(phoneNumber!!, updatedEmail)
+            recreate()
         }
 
         cancelEmail.setOnClickListener {

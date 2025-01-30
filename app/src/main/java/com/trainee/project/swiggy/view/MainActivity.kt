@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.location.AddLocation
+import com.trainee.project.swiggy.location.MyLocation
+import com.trainee.project.swiggy.login.LoginActivity
+import com.trainee.project.swiggy.login.LoginLaunchActivity
 import com.trainee.project.swiggy.profile.UserDeatails
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var profileBackground: LinearLayout
     lateinit var profileImg: ImageView
     lateinit var addLocations: LinearLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -31,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         profileBackground = findViewById(R.id.top_container_layout)
         profileImg = findViewById(R.id.profileImg)
         addLocations = findViewById(R.id.addLocations)
+
 //        searchBar = findViewById(com.hbb20.R.id.search_bar)
 
         bottomNavigationView.setOnItemSelectedListener {
@@ -72,9 +77,27 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
+
+        val phoneNumber = sharedPreferences.getString("user_phone", null)
+
+
+
+        getSharedPreferences("logOut", MODE_PRIVATE).edit()
+            .putBoolean("isFirstTime", true)
+            .apply()
+
+
         profileImg.setOnClickListener {
-            val intent = Intent(this@MainActivity, UserDeatails::class.java)
-            startActivity(intent)
+
+            if (phoneNumber!=null){
+                val intent = Intent(this@MainActivity, UserDeatails::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
         addLocations.setOnClickListener {
@@ -90,4 +113,17 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.mainFragment, fragment)
         transaction.commit()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+       // finish()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        recreate()
+    }
+
+
 }
