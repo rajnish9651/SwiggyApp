@@ -1,20 +1,24 @@
 package com.trainee.project.swiggy.view
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.location.AddLocation
 import com.trainee.project.swiggy.location.MyLocation
 import com.trainee.project.swiggy.login.LoginActivity
-import com.trainee.project.swiggy.login.LoginLaunchActivity
 import com.trainee.project.swiggy.profile.UserDeatails
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var profileBackground: LinearLayout
     lateinit var profileImg: ImageView
     lateinit var addLocations: LinearLayout
+    private lateinit var myLocation: MyLocation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -37,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         addLocations = findViewById(R.id.addLocations)
 
 //        searchBar = findViewById(com.hbb20.R.id.search_bar)
-
+        myLocation = MyLocation(this)
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.food -> {
@@ -81,7 +86,14 @@ class MainActivity : AppCompatActivity() {
 
         val phoneNumber = sharedPreferences.getString("user_phone", null)
 
+        // Get the current location of the device
+        if (isInternetAvailable()) {
+            myLocation.getCurrentLocation()
+        } else {
 
+            Toast.makeText(this, "No intenet connection", Toast.LENGTH_SHORT).show()
+            showNoInternetDialogBox()
+        }
 
         getSharedPreferences("logOut", MODE_PRIVATE).edit()
             .putBoolean("isFirstTime", true)
@@ -93,9 +105,11 @@ class MainActivity : AppCompatActivity() {
             if (phoneNumber!=null){
                 val intent = Intent(this@MainActivity, UserDeatails::class.java)
                 startActivity(intent)
+//
             }else{
                 val intent = Intent(this@MainActivity, LoginActivity::class.java)
                 startActivity(intent)
+
             }
 
         }
@@ -117,13 +131,45 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()
-       // finish()
+
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        recreate()
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+
     }
+
+    fun showNoInternetDialogBox() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("your internet is Off. please On it")
+        builder.setTitle("No internet connection")
+        builder.setCancelable(false)
+        builder.setPositiveButton("On") { diallog, which ->
+            val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+            startActivity(intent)
+        }
+        builder.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()
+        }
+        builder.create().show()
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+
+        ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        myLocation.onRequestPermissionsResultMyLocation(requestCode, permissions, grantResults)
+    }
+
+
 
 
 }

@@ -38,6 +38,7 @@
     </LinearLayout>
 
         <ImageView
+            android:id="@+id/threeDotMenu"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentEnd="true"

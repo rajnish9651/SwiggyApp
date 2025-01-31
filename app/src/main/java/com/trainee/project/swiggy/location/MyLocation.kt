@@ -1,6 +1,8 @@
 package com.trainee.project.swiggy.location
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -13,16 +15,15 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.trainee.project.swiggy.R
-import com.trainee.project.swiggy.profile.UserDeatails
+import com.trainee.project.swiggy.login.LoginLaunchActivity
 import java.util.Locale
 
 class MyLocation(
-    private val context: FragmentActivity,
-    private val listener: OnCityReceivedListener
+    private val context: Context,
+//    private val listener: OnCityReceivedListener
 ) {
 
     private val fusedLocationClient: FusedLocationProviderClient =
@@ -48,7 +49,7 @@ class MyLocation(
                         val city = getCityName(it.latitude, it.longitude)
                         city?.let { cityName ->
                             Log.d("cityy", cityName)
-                            listener.onCityReceived(cityName)
+//                            listener.onCityReceived(cityName)
 
 
                         }
@@ -81,9 +82,9 @@ class MyLocation(
     }
 
     // function to request permissions
-    private fun requestPermissions() {
+    fun requestPermissions() {
         ActivityCompat.requestPermissions(
-            context,
+            context as Activity,
             arrayOf(
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
@@ -94,7 +95,7 @@ class MyLocation(
 
 
     // function to check if permissions are granted
-    private fun checkPermissions(): Boolean {
+    fun checkPermissions(): Boolean {
         return ContextCompat.checkSelfPermission(
             context,
             android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -136,13 +137,11 @@ class MyLocation(
                 getCurrentLocation()
             } else {
                 Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
-//                permissionDeniedDialogBox()
-                val intent = Intent(context, UserDeatails::class.java)
-                context.startActivity(intent)
+                permissionDeniedDialogBox()
+
             }
         }
     }
-
 
     private fun permissionDeniedDialogBox() {
         val builder = AlertDialog.Builder(context)
@@ -155,7 +154,10 @@ class MyLocation(
             context.startActivity(intent)
         }
         builder.setNegativeButton("Cancel") { dialog, which ->
+            Log.d("PermissionDenied", "Cancel button clicked, redirecting to LoginActivity")
+
             dialog.dismiss()
+
         }
         builder.create().show()
     }

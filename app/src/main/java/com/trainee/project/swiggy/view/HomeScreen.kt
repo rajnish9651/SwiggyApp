@@ -19,7 +19,7 @@ import com.trainee.project.swiggy.location.OnCityReceivedListener
 import com.trainee.project.swiggy.profile.UserDeatails
 
 
-class HomeScreen : Fragment(), OnCityReceivedListener {
+class HomeScreen : Fragment(){
 
     lateinit var current_location: TextView
     var currentLocation: String? = null
@@ -47,9 +47,7 @@ class HomeScreen : Fragment(), OnCityReceivedListener {
         instamart = view.findViewById(R.id.instamart)
         dineout = view.findViewById(R.id.dineout)
 
-        myLocation = MyLocation(requireActivity(),this)
 
-        myLocation.getCurrentLocation()
 
 
         foodDelivery.setOnClickListener {
@@ -72,21 +70,7 @@ class HomeScreen : Fragment(), OnCityReceivedListener {
     }
 
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
 
-        ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        myLocation.onRequestPermissionsResultMyLocation(requestCode, permissions, grantResults)
-    }
-
-    override fun onCityReceived(city: String) {
-//        currentLocation = city
-//        current_location.text = currentLocation
-        Log.d("HomeScreen", "City received: $currentLocation")
-    }
 
 
 

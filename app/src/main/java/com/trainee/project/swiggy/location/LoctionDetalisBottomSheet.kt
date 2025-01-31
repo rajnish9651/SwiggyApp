@@ -1,9 +1,7 @@
 package com.trainee.project.swiggy.location
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.repository.dao.model.model.UserSavedLocationData
-import com.trainee.project.swiggy.view.MainActivity
 import com.trainee.project.swiggy.viewmodel.UserSavedLocationViewModel
 
 

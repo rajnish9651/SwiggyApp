@@ -77,6 +77,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,SavedAddressClickLis
 
         confirmLocationBtn.setOnClickListener {
 
+            if (selectedAddress!=null && phoneNumber!=null){
+
+
             var bottomsheet = LoctionDetalisBottomSheet()
             var bundle = Bundle()
             bundle.putString("address", selectedAddress)
@@ -85,7 +88,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback,SavedAddressClickLis
             bottomsheet.arguments = bundle
             bottomsheet.show(supportFragmentManager, "bottomsheet")
 
-
+            }
 
         }
     }
