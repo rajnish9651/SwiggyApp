@@ -44,7 +44,9 @@ class OtpVerificationActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                // Check if the pin is of length 6
+            }
+
+            override fun afterTextChanged(p0: Editable?) {  // Check if the pin is of length 6
                 if (p0?.length == 6 && (p0.toString() == "111111")) {
                     // First, check if the phone number exists in the database
                     number?.let {
@@ -60,15 +62,15 @@ class OtpVerificationActivity : AppCompatActivity() {
                                 editor.apply()
                                 finish()
 
-        if (myLocation.checkPermissions()) {
-            val intent = Intent(this@OtpVerificationActivity, MainActivity::class.java)
-            startActivity(intent)
-        } else {
-            val intent = Intent(this@OtpVerificationActivity, AddLocation::class.java)
-            startActivity(intent)
-        }
-
+                                if (myLocation.checkPermissions()) {
+                                    val intent = Intent(this@OtpVerificationActivity, MainActivity::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    val intent = Intent(this@OtpVerificationActivity, AddLocation::class.java)
+                                    startActivity(intent)
                                 }
+
+                            }
                             else {
 
                                 userViewModel.insertUserDetailsViewModel(UserDeatailsData(0, it, "", ""))
@@ -83,8 +85,6 @@ class OtpVerificationActivity : AppCompatActivity() {
                     pinView.error = "Invalid OTP. Please try again."
                 }
             }
-
-            override fun afterTextChanged(p0: Editable?) {}
         })
     }
 }

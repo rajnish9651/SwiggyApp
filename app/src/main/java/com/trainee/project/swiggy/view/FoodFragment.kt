@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +39,8 @@ class FoodFragment : Fragment() {
     lateinit var searchView: EditText
     lateinit var horizontalRecyclerView: RecyclerView
     lateinit var horizontalAdapter: FoodOfferZoneHorizontalAdapter
+    lateinit var fourPlusRating: CardView
+    lateinit var tenMinutesDelivery: CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +54,8 @@ class FoodFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_food, container, false)
         recyclerViewFood = view.findViewById(R.id.recyclerViewFood)
+        fourPlusRating = view.findViewById(R.id.fourPlusRating)
+        tenMinutesDelivery = view.findViewById(R.id.tenMinutesDelivery)
 //        profile = view.findViewById(R.id.profile)
         mic = (activity as AppCompatActivity).findViewById(R.id.mic)
         searchView = (activity as AppCompatActivity).findViewById(R.id.searchView)
@@ -117,7 +122,7 @@ class FoodFragment : Fragment() {
             FoodItemsData(
                 id = 1,
                 name = "Burger",
-                rating = 4.2,
+                rating = 3.2,
                 totalRatings = 80,
                 deliveryTime = "15-20 mins",
                 cuisine = "Fast Food, American",
@@ -362,7 +367,7 @@ class FoodFragment : Fragment() {
             FoodItemsData(
                 id = 6,
                 name = "Cake Delight",
-                rating = 4.7,
+                rating = 3.7,
                 totalRatings = 500,
                 deliveryTime = "20-25 mins",
                 cuisine = "Desserts, Bakery",
@@ -421,6 +426,19 @@ class FoodFragment : Fragment() {
 
         recyclerViewFood.layoutManager = LinearLayoutManager(requireActivity())
         recyclerViewFood.adapter = foodItemsAdapter
+
+
+        // Inside the onCreateView function
+        fourPlusRating.setOnClickListener {
+            // Filter the list to show only food items with a rating >= 4
+            val filteredList = foodItemsList.filter {
+                it.rating >= 4.0
+            }
+
+            // Update the adapter with the filtered list
+            foodItemsAdapter.updateList(filteredList)
+            foodItemsAdapter.notifyDataSetChanged()
+        }
 
 
         searchView.addTextChangedListener(object : TextWatcher {

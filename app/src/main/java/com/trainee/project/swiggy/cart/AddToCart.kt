@@ -1,5 +1,6 @@
 package com.trainee.project.swiggy.cart
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.login.LoginActivity
 import com.trainee.project.swiggy.repository.dao.model.model.FoodTypeData
 import com.trainee.project.swiggy.view.CartItemListener
 import com.trainee.project.swiggy.viewmodel.FoodViewModel
@@ -32,6 +34,7 @@ class AddToCart : AppCompatActivity(), CartItemListener {
     lateinit var totalPayAmmount: TextView
     lateinit var priceToProceed: TextView
     lateinit var locationBox: LinearLayout
+    lateinit var loginCart: LinearLayout
     lateinit var locationBoxBtn: CardView
     lateinit var proceedOrder: RelativeLayout
     lateinit var placeOrderBtn: CardView
@@ -54,8 +57,11 @@ class AddToCart : AppCompatActivity(), CartItemListener {
         proceedOrder = findViewById(R.id.proceedOrder)
         locationBoxBtn = findViewById(R.id.locationBoxBtn)
         placeOrderBtn = findViewById(R.id.placeOrderBtn)
+        loginCart = findViewById(R.id.loginCart)
         orderGif = findViewById(R.id.orderGif)
 
+        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
+        val phoneNumber = sharedPreferences.getString("user_phone", null)
 
         viewModel = ViewModelProvider(this)[FoodViewModel::class.java]
 
@@ -96,10 +102,26 @@ class AddToCart : AppCompatActivity(), CartItemListener {
             }
             isExpanded = !isExpanded // Toggle state
         }
-        locationBoxBtn.setOnClickListener {
+
+
+        if (phoneNumber==null) {
+            loginCart.setOnClickListener {
+                var intent =Intent(this@AddToCart,LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        else{
+            loginCart.visibility=View.GONE
+            locationBox.visibility = View.VISIBLE
+
+            locationBoxBtn.setOnClickListener {
             locationBox.visibility = View.GONE
+//            loginCart.visibility = View.GONE
             proceedOrder.visibility = View.VISIBLE
         }
+        }
+
+
 
         placeOrderBtn.setOnClickListener {
             Glide.with(orderGif).load(R.drawable.success).into(orderGif)
