@@ -21,4 +21,14 @@ class UserSavedLocationRepository(private val userSavedLocationDao: UserSavedLoc
      fun getUserLocationByPhoneNumber(phoneNumber: String): LiveData<List<UserSavedLocationData>> {
         return userSavedLocationDao.getUserLocationByPhoneNumber(phoneNumber)
     }
+
+   suspend fun deleteAddressByIdRepo(id: Int) {
+
+       userSavedLocationDao.deleteAddressByIdDao(id)
+
+    }
+
+     suspend fun getUserAddressRepo(phoneNumber:String): List<UserSavedLocationData>{
+       return userSavedLocationDao.getUserAddressDao(phoneNumber)
+    }
 }

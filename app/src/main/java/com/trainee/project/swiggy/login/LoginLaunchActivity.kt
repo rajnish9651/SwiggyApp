@@ -30,21 +30,25 @@ class LoginLaunchActivity : AppCompatActivity() {
         mobileNumber = findViewById(R.id.mobileNumber)
         skipBtn = findViewById(R.id.skipBtn)
 
+        // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
 
+        // Check if login first time
         val logout = getSharedPreferences("logOut", MODE_PRIVATE)
         val isFirstTime = logout.getBoolean("isFirstTime", false)
 
+        // If it the user first time true redirect to MainActivity
         if (isFirstTime) {
             var int = Intent(this, MainActivity::class.java)
             startActivity(int)
             finish()
         }
 
-
+//        Login button click
         loginBtn.setOnClickListener {
             val number = mobileNumber.text.toString().trim()
 
+            // Validate the phone number length
             if (number.length == 10) {
 
                 val intent = Intent(this@LoginLaunchActivity, OtpVerificationActivity::class.java)
@@ -56,22 +60,21 @@ class LoginLaunchActivity : AppCompatActivity() {
             }
         }
 
+
         skipBtn.setOnClickListener {
 
+            // Clear any saved user information
             val editor = sharedPreferences.edit()
             editor.clear()
             editor.apply()
 
+            // If location permissions are not granted ask user to add location
             if (!myLocation.checkPermissions()) {
 
                 val intent = Intent(this@LoginLaunchActivity, AddLocation::class.java)
                 startActivity(intent)
-            } else {
-
-                val intent = Intent(this@LoginLaunchActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
             }
+
 
         }
     }

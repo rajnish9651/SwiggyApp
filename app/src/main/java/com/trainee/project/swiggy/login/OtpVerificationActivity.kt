@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.chaos.view.PinView
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.location.AddLocation
+import com.trainee.project.swiggy.location.MyLocation
 import com.trainee.project.swiggy.notification.Notification
 import com.trainee.project.swiggy.repository.dao.model.model.UserDeatailsData
+import com.trainee.project.swiggy.view.MainActivity
 import com.trainee.project.swiggy.viewmodel.UserDetailsViewModel
 
 class OtpVerificationActivity : AppCompatActivity() {
@@ -19,6 +22,7 @@ class OtpVerificationActivity : AppCompatActivity() {
     lateinit var pinView: PinView
     lateinit var userViewModel: UserDetailsViewModel
     lateinit var inputTextNumber: TextView
+    lateinit var myLocation: MyLocation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -35,6 +39,7 @@ class OtpVerificationActivity : AppCompatActivity() {
         inputTextNumber = findViewById(R.id.inputTextNumber)
         inputTextNumber.text = "Send to +91 ${number}"
 
+        myLocation = MyLocation(this)
         pinView.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -46,15 +51,23 @@ class OtpVerificationActivity : AppCompatActivity() {
 
                         userViewModel.isPhoneNumberExists(it).observe(this@OtpVerificationActivity) { exists ->
                             if (exists) {
+//                                val intent = Intent(this@OtpVerificationActivity, AddLocation::class.java)
+//                                startActivity(intent)
+                                // Saving the phone number to SharedPreferences
+                                val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
+                                val editor = sharedPreferences.edit()
+                                editor.putString("user_phone", it)
+                                editor.apply()
+                                finish()
 
-                                    val intent = Intent(this@OtpVerificationActivity, Notification::class.java)
-                                    startActivity(intent)
-                                    // Saving the phone number to SharedPreferences
-                                    val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-                                    val editor = sharedPreferences.edit()
-                                    editor.putString("user_phone", it)
-                                    editor.apply()
-                                    finish()
+        if (myLocation.checkPermissions()) {
+            val intent = Intent(this@OtpVerificationActivity, MainActivity::class.java)
+            startActivity(intent)
+        } else {
+            val intent = Intent(this@OtpVerificationActivity, AddLocation::class.java)
+            startActivity(intent)
+        }
+
                                 }
                             else {
 

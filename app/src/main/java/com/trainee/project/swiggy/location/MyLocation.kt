@@ -12,25 +12,26 @@ import android.net.Uri
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.trainee.project.swiggy.R
-import com.trainee.project.swiggy.login.LoginLaunchActivity
+import com.trainee.project.swiggy.notification.Notification
 import java.util.Locale
 
 class MyLocation(
     private val context: Context,
-//    private val listener: OnCityReceivedListener
-) {
+
+    ) {
 
     private val fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
     fun getCurrentLocation() {
-        var address: String? = null
+
         if (isLocationEnabled()) {
 
 
@@ -47,12 +48,7 @@ class MyLocation(
 
                         // get city name from latitude and longitude
                         val city = getCityName(it.latitude, it.longitude)
-                        city?.let { cityName ->
-                            Log.d("cityy", cityName)
-//                            listener.onCityReceived(cityName)
 
-
-                        }
                     } ?: run {
                         // if location is null
                         Toast.makeText(context, "Null location received", Toast.LENGTH_SHORT).show()
@@ -77,6 +73,15 @@ class MyLocation(
 
         val geoCoder = Geocoder(context, Locale.getDefault())
         val address = geoCoder.getFromLocation(latitude, longitude, 1)
+
+        var fulladdress = address?.get(0)?.getAddressLine(0) ?: address?.get(0)?.subAdminArea
+        var blockOrsector = address?.get(0)?.subLocality ?: address?.get(0)?.subAdminArea
+
+        context.getSharedPreferences("user_loc", MODE_PRIVATE)
+            .edit()
+            .putString("currentAddress", fulladdress)
+            .putString("blockOrSector", blockOrsector)
+            .apply()
         return address?.get(0)?.getAddressLine(0) ?: address?.get(0)?.subAdminArea
 
     }
@@ -104,7 +109,7 @@ class MyLocation(
 
 
     // function to check if location is enabled
-    private fun isLocationEnabled(): Boolean {
+    fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager =
             getSystemService(context, LocationManager::class.java) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
@@ -135,6 +140,9 @@ class MyLocation(
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(context, "Permission granted", Toast.LENGTH_SHORT).show()
                 getCurrentLocation()
+                val intent = Intent(context, Notification::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                context.startActivity(intent)
             } else {
                 Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
                 permissionDeniedDialogBox()

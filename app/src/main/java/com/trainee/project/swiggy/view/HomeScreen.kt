@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.location.AddLocation
 import com.trainee.project.swiggy.location.MyLocation
-import com.trainee.project.swiggy.location.OnCityReceivedListener
 import com.trainee.project.swiggy.profile.UserDeatails
 
 
@@ -36,8 +35,6 @@ class HomeScreen : Fragment(){
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home_screen, container, false)
-
-        val view2 = inflater.inflate(R.layout.fragment_home_screen, container, false)
 
         // Inflate the search bar layout
         val searchBarView = inflater.inflate(R.layout.search_bar, container, false)
@@ -68,12 +65,6 @@ class HomeScreen : Fragment(){
 
         return view
     }
-
-
-
-
-
-
 
 
 

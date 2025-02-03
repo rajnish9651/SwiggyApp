@@ -74,7 +74,7 @@ class UserProfile : AppCompatActivity() {
                     // Add TextWatchers AFTER setting text to avoid unnecessary triggers
                     addTextWatcher(userName, nameSection, user.name)
                     addTextWatcher(userEmail, emailSection, user.email)
-                    addTextWatcher(userMobile, numberSection,user.number)
+//                    addTextWatcher(userMobile, numberSection,user.number)
 
                 }
             })
@@ -88,9 +88,7 @@ class UserProfile : AppCompatActivity() {
             // Extract updated name from EditText
             val updatedName = userName.text.toString()
             userViewModel.updateUserName(phoneNumber!!, updatedName)
-//            recreate()
-
-
+           recreate()
 
             userViewModel.getUserById(phoneNumber).observe(this, Observer { isUpdated ->
                 if (isUpdated!=null) {

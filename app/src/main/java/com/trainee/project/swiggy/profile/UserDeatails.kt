@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.cart.AddToCart
+import com.trainee.project.swiggy.location.SavedAdresssActivity
 import com.trainee.project.swiggy.login.LoginActivity
 import com.trainee.project.swiggy.login.LoginLaunchActivity
 import com.trainee.project.swiggy.viewmodel.UserDetailsViewModel
@@ -25,6 +27,7 @@ class UserDeatails : AppCompatActivity() {
     lateinit var userEmail: TextView
     lateinit var userNumber: TextView
     lateinit var userViewModel: UserDetailsViewModel
+    lateinit var savedAdress: RelativeLayout
 
 
     lateinit var backBtn: ImageView
@@ -50,12 +53,10 @@ class UserDeatails : AppCompatActivity() {
         userName = findViewById(R.id.userName)
         userEmail = findViewById(R.id.userEmail)
         userNumber = findViewById(R.id.userNumber)
+        savedAdress = findViewById(R.id.savedAdress)
 
 
         userViewModel = ViewModelProvider(this)[UserDetailsViewModel::class.java]
-
-
-
 
 
         if (phoneNumber != null) {
@@ -102,5 +103,12 @@ class UserDeatails : AppCompatActivity() {
             }
 
         }
+
+
+        savedAdress.setOnClickListener {
+            var intent=Intent(this@UserDeatails,SavedAdresssActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

@@ -453,7 +453,7 @@ class FoodFragment : Fragment() {
             try {
                 startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT)
             } catch (e: Exception) {
-                Toast.makeText(requireActivity(), " ${e.message}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireActivity(), " ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var loginBtn: AppCompatButton
     lateinit var mobileNumber: TextInputEditText
     lateinit var skipBtn: TextView
-    lateinit var UserViewModel: UserDetailsViewModel
+
     lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
         mobileNumber = findViewById(R.id.mobileNumber)
         skipBtn = findViewById(R.id.skipBtn)
 
-        UserViewModel = ViewModelProvider(this)[UserDetailsViewModel::class.java]
         sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
 
         loginBtn.setOnClickListener {
@@ -49,7 +48,6 @@ class LoginActivity : AppCompatActivity() {
 
         skipBtn.setOnClickListener {
             // Clear the shared preferences
-
             val editor = sharedPreferences.edit()
             editor.clear()
             editor.apply()

@@ -39,7 +39,7 @@
                         android:background="@drawable/location_icon" />
 
                     <TextView
-                        android:id="@+id/location_text"
+                        android:id="@+id/location_Head"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/location_icon"
@@ -51,7 +51,7 @@
                         android:id="@+id/location_icon_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/location_text"
+                        android:layout_toEndOf="@id/location_Head"
                         android:background="@drawable/arrow_down_icon" />
 
                 </LinearLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginTop="?actionBarSize"
+    >
+
+   <ImageView
+       android:id="@+id/saveddressicon"
+       android:layout_width="25dp"
+       android:layout_height="25dp"
+       android:background="@drawable/location_on_icon"/>
+
+    <RelativeLayout
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/saveddressicon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/addressType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/addressProfile"
+            android:layout_marginTop="2dp"
+            android:layout_below="@+id/addressType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" use kar rahe hain aur wo properly install nahi hai, toh yeh error aa sakta hai."/>
+
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/addressProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/editAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/editAddress"
+                android:id="@+id/shareAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/shareAddress"
+                android:id="@+id/deleteAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

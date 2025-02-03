@@ -19,6 +19,9 @@
         android:theme="@style/Theme.Swiggy"
         tools:targetApi="31">
         <activity
+            android:name=".location.SavedAdresssActivity"
+            android:exported="false" />
+        <activity
             android:name=".location.MapActivity"
             android:exported="false" />
         <activity
@@ -54,7 +57,6 @@
         <activity
             android:name=".login.OtpVerificationActivity"
             android:exported="false" />
-
         <activity
             android:name=".login.LoginActivity"
             android:exported="false" />

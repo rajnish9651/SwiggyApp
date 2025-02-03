@@ -21,6 +21,12 @@ interface UserSavedLocationDao {
     @Query("SELECT * FROM Users_Location WHERE moblineNo = :phoneNumber")
     fun getUserLocationByPhoneNumber(phoneNumber: String): LiveData<List<UserSavedLocationData>>
 
+    @Query("Delete FROM Users_Location WHERE id=:id")
+    suspend fun deleteAddressByIdDao(id: Int)
+
+
+    @Query("SELECT * FROM Users_Location WHERE moblineNo =:phoneNumber")
+   suspend fun getUserAddressDao(phoneNumber:String): List<UserSavedLocationData>
 
 
 }
