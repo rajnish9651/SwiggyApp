@@ -24,37 +24,37 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_launch_screen)
+        setContentView(R.layout.login_screen)
+//
+//        loginBtn = findViewById(R.id.loginBtn)
+//        mobileNumber = findViewById(R.id.mobileNumber)
+//        skipBtn = findViewById(R.id.skipBtn)
+//
+//        sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
+//
+//        loginBtn.setOnClickListener {
+//            val number = mobileNumber.text.toString().trim()
+//
+//            if (number.length == 10) {
+//                // Start OtpVerificationActivity and pass the phone number
+//                val intent = Intent(this@LoginActivity, OtpVerificationActivity::class.java)
+//                intent.putExtra("phone", number)
+//                startActivity(intent)
+//                finish()
+//            } else {
+//                mobileNumber.error = "Please enter a valid 10-digit phone number"
+//            }
+//        }
 
-        loginBtn = findViewById(R.id.loginBtn)
-        mobileNumber = findViewById(R.id.mobileNumber)
-        skipBtn = findViewById(R.id.skipBtn)
-
-        sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-
-        loginBtn.setOnClickListener {
-            val number = mobileNumber.text.toString().trim()
-
-            if (number.length == 10) {
-                // Start OtpVerificationActivity and pass the phone number
-                val intent = Intent(this@LoginActivity, OtpVerificationActivity::class.java)
-                intent.putExtra("phone", number)
-                startActivity(intent)
-                finish()
-            } else {
-                mobileNumber.error = "Please enter a valid 10-digit phone number"
-            }
-        }
-
-        skipBtn.setOnClickListener {
-            // Clear the shared preferences
-            val editor = sharedPreferences.edit()
-            editor.clear()
-            editor.apply()
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+//        skipBtn.setOnClickListener {
+//            // Clear the shared preferences
+//            val editor = sharedPreferences.edit()
+//            editor.clear()
+//            editor.apply()
+//            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
     }
 
 

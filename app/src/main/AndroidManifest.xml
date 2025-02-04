@@ -19,6 +19,16 @@
         android:theme="@style/Theme.Swiggy"
         tools:targetApi="31">
         <activity
+            android:name=".login.SplaceActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
             android:name=".location.SavedAdresssActivity"
             android:exported="false" />
         <activity
@@ -47,12 +57,8 @@
             android:exported="false" />
         <activity
             android:name=".login.LoginLaunchActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".login.OtpVerificationActivity"

@@ -1,6 +1,7 @@
 package com.trainee.project.swiggy.view
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.text.Editable
@@ -428,16 +429,27 @@ class FoodFragment : Fragment() {
         recyclerViewFood.adapter = foodItemsAdapter
 
 
-        // Inside the onCreateView function
+        // Inside the  function
         fourPlusRating.setOnClickListener {
             // Filter the list to show only food items with a rating >= 4
+            fourPlusRating.setCardBackgroundColor(Color.parseColor("#E6E6E6"));
             val filteredList = foodItemsList.filter {
                 it.rating >= 4.0
             }
-
             // Update the adapter with the filtered list
             foodItemsAdapter.updateList(filteredList)
             foodItemsAdapter.notifyDataSetChanged()
+        }
+
+        tenMinutesDelivery.setOnClickListener {
+            tenMinutesDelivery.setCardBackgroundColor(Color.parseColor("#E6E6E6"));
+            val filteredList = foodItemsList.filter {
+                it.deliveryTime == "10-15 mins"
+            }
+
+            foodItemsAdapter.updateList(filteredList)
+            foodItemsAdapter.notifyDataSetChanged()
+
         }
 
 

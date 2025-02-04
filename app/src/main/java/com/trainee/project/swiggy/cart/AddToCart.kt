@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trainee.project.swiggy.R
-import com.trainee.project.swiggy.login.LoginActivity
+import com.trainee.project.swiggy.login.LoginLaunchActivity
 import com.trainee.project.swiggy.repository.dao.model.model.FoodTypeData
 import com.trainee.project.swiggy.view.CartItemListener
 import com.trainee.project.swiggy.viewmodel.FoodViewModel
@@ -106,7 +106,7 @@ class AddToCart : AppCompatActivity(), CartItemListener {
 
         if (phoneNumber==null) {
             loginCart.setOnClickListener {
-                var intent =Intent(this@AddToCart,LoginActivity::class.java)
+                var intent =Intent(this@AddToCart,LoginLaunchActivity::class.java)
                 startActivity(intent)
             }
         }

@@ -359,6 +359,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/fourAboveRating"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_margin="10dp"
@@ -448,11 +449,11 @@
         <LinearLayout
             android:id="@+id/cartLayout"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:layout_below="@+id/recylerViewSubwayItems"
             android:layout_marginTop="?actionBarSize"
             android:background="@drawable/add_card_bg"
-            android:gravity="center"
+
             android:visibility="gone">
 
 
@@ -463,6 +464,7 @@
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#4CAF82"
                 app:cardCornerRadius="15dp"
+
                 app:cardElevation="3dp">
 
 

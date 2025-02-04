@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.cart.AddToCart
 import com.trainee.project.swiggy.location.SavedAdresssActivity
-import com.trainee.project.swiggy.login.LoginActivity
 import com.trainee.project.swiggy.login.LoginLaunchActivity
+import com.trainee.project.swiggy.login.SplaceActivity
 import com.trainee.project.swiggy.viewmodel.UserDetailsViewModel
 
 class UserDeatails : AppCompatActivity() {
@@ -39,7 +39,7 @@ class UserDeatails : AppCompatActivity() {
         val phoneNumber = sharedPreferences.getString("user_phone", null)
         if (phoneNumber == null) {
             // If no phone number found in SharedPreferences, redirect to login screen
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, LoginLaunchActivity::class.java)
             startActivity(intent)
             finish()
 
@@ -95,7 +95,12 @@ class UserDeatails : AppCompatActivity() {
                 editor.clear()
                 editor.apply()
 
-                var intent = Intent(this@UserDeatails, LoginActivity::class.java)
+                // Mark the first time so that LoginLaunch Activity not show
+                getSharedPreferences("logOut", MODE_PRIVATE).edit()
+                    .putBoolean("isFirstTime", false)
+                    .apply()
+
+                var intent = Intent(this@UserDeatails, LoginLaunchActivity::class.java)
                 startActivity(intent)
                 finish()
 

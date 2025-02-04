@@ -3,6 +3,7 @@ package com.trainee.project.swiggy.view
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,11 +14,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trainee.project.swiggy.R
 import com.trainee.project.swiggy.location.AddLocation
 import com.trainee.project.swiggy.location.MyLocation
-import com.trainee.project.swiggy.login.LoginActivity
+import com.trainee.project.swiggy.login.LoginLaunchActivity
 import com.trainee.project.swiggy.profile.UserDeatails
 
 class MainActivity : AppCompatActivity() {
-
 
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var profileBackground: LinearLayout
@@ -53,17 +53,20 @@ class MainActivity : AppCompatActivity() {
                 R.id.food -> {
                     loadFragment(FoodFragment())
                     profileBackground.setBackgroundColor(Color.parseColor("#315DB9"))
+                    changeColorsForFood()
                     true
                 }
 
                 R.id.instamart -> {
                     loadFragment(InstamartFragment())
+                    resetColors()
                     true
                 }
 
                 R.id.dineout -> {
                     loadFragment(DineoutFragment())
                     profileBackground.setBackgroundColor(Color.parseColor("#FFE2AE"))
+//                    resetColors()
                     true
                 }
 
@@ -76,6 +79,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.swiggy -> {
                     loadFragment(HomeScreen())
                     profileBackground.setBackgroundColor(Color.parseColor("#ffffff"))
+                    resetColors()
                     true
                 }
 
@@ -106,14 +110,13 @@ class MainActivity : AppCompatActivity() {
 
         // Handle profile image click to navigate to User Details or Login Activity
         profileImg.setOnClickListener {
-//            Log.d("checkphone", phoneNumber.toString())
+            Log.e("checkphone", "$phoneNumber")
             if (phoneNumber != null) {
-
                 val intent = Intent(this@MainActivity, UserDeatails::class.java)
                 startActivity(intent)
             } else {
 
-                val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                val intent = Intent(this@MainActivity, LoginLaunchActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -166,5 +169,20 @@ class MainActivity : AppCompatActivity() {
             current_location.text = currentAddress
             location_Head.text = blockOrSector
         }
+    }
+
+
+    private fun changeColorsForFood() {
+        profileBackground.setBackgroundColor(Color.parseColor("#315DB9"))
+        location_Head.setTextColor(Color.parseColor("#ffffff"))
+        current_location.setTextColor(Color.parseColor("#ffffff"))
+        profileImg.background.setTint(Color.parseColor("#ffffff"))
+    }
+
+    private fun resetColors() {
+        profileBackground.setBackgroundColor(Color.parseColor("#ffffff"))
+        location_Head.setTextColor(Color.parseColor("#000000"))
+        current_location.setTextColor(Color.parseColor("#000000"))
+        profileImg.background.setTint(Color.parseColor("#000000"))
     }
 }

@@ -40,7 +40,6 @@ class FoodOfferZoneHorizontalAdapter(var foodItemsList: MutableList<FoodItemsDat
         Glide.with(holder.imgChild).load(food.imgUrl).into(holder.imgChild)
 
         holder.itemView.setOnClickListener {
-
             // Start FoodItemsTypesActivity with the food data
             val context = holder.itemView.context
             val intent = Intent(context, FoodItemsTypesActivity::class.java)

@@ -35,14 +35,7 @@ class LoginLaunchActivity : AppCompatActivity() {
 
         // Check if login first time
         val logout = getSharedPreferences("logOut", MODE_PRIVATE)
-        val isFirstTime = logout.getBoolean("isFirstTime", false)
-
-        // If it the user first time true redirect to MainActivity
-        if (isFirstTime) {
-            var int = Intent(this, MainActivity::class.java)
-            startActivity(int)
-            finish()
-        }
+//         logout.getBoolean("isFirstTime", true)
 
 //        Login button click
         loginBtn.setOnClickListener {

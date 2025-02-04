@@ -1,6 +1,7 @@
 package com.trainee.project.swiggy.view
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +41,7 @@ class FoodItemsTypesActivity : AppCompatActivity(), FoodTypeListener {
     private lateinit var itemsNumber: TextView
     private lateinit var cuisine: TextView
     private lateinit var backArrowBtn: ImageView
+    private lateinit var fourAboveRating: CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -61,6 +64,7 @@ class FoodItemsTypesActivity : AppCompatActivity(), FoodTypeListener {
         recyclerView = findViewById(R.id.recylerViewSubwayItems)
         cartLayout = findViewById(R.id.cartLayout)
         itemsNumber = findViewById(R.id.itemsNumber)
+        fourAboveRating = findViewById(R.id.fourAboveRating)
 
         val food: FoodItemsData? = intent.getParcelableExtra("food")
         val childList: List<FoodTypeData>? = food?.childList
@@ -109,6 +113,18 @@ class FoodItemsTypesActivity : AppCompatActivity(), FoodTypeListener {
 
         backArrowBtn.setOnClickListener {
             finish()
+        }
+
+        fourAboveRating.setOnClickListener {
+
+//            fourAboveRating.cardBackgroundColor.defaultColor
+            fourAboveRating.setCardBackgroundColor(Color.parseColor("#E6E6E6"));
+            val filteredList = foodChildItemsList.filter {
+                it.rating > 4.0
+            }
+
+            foodChildAdapter.updateList(filteredList.toMutableList())
+            foodChildAdapter.notifyDataSetChanged()
         }
 
         searchText.addTextChangedListener(object : TextWatcher {
