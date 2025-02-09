@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.SharedPrefernces.PrefrenceKey
+import com.trainee.project.swiggy.SharedPrefernces.SharedPreferencesManager
 import com.trainee.project.swiggy.location.AddLocation
 import com.trainee.project.swiggy.location.MyLocation
 import com.trainee.project.swiggy.login.LoginLaunchActivity
@@ -87,9 +89,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // SharedPreferences to get user phone number
-        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-        val phoneNumber = sharedPreferences.getString("user_phone", null)
+
+//        val phoneNumber = SharedPreferencesManager.initialise(PrefrenceKey.USER_PHONE)
+        var sharedPreferencesManager=SharedPreferencesManager.getInstance(this) // Initialize the SharedPreferencesManager
+
+        val phoneNumber = sharedPreferencesManager.getPhoneNumber(PrefrenceKey.USER_PHONE)
+
+
 
         // Get the current location of the device
         myLocation.getCurrentLocation()
@@ -104,9 +110,8 @@ class MainActivity : AppCompatActivity() {
         location_Head.text = blockOrSector
 
         // Mark the first time so that LoginLaunch Activity not show
-        getSharedPreferences("logOut", MODE_PRIVATE).edit()
-            .putBoolean("isFirstTime", true)
-            .apply()
+
+        sharedPreferencesManager.saveLoginStatus(PrefrenceKey.LOGIN_LOGOUT_STATUS,true)
 
         // Handle profile image click to navigate to User Details or Login Activity
         profileImg.setOnClickListener {

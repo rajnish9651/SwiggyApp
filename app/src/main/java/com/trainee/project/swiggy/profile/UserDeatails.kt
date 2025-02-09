@@ -11,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.SharedPrefernces.PrefrenceKey
+import com.trainee.project.swiggy.SharedPrefernces.SharedPreferencesManager
 import com.trainee.project.swiggy.cart.AddToCart
 import com.trainee.project.swiggy.location.SavedAdresssActivity
 import com.trainee.project.swiggy.login.LoginLaunchActivity
-import com.trainee.project.swiggy.login.SplaceActivity
 import com.trainee.project.swiggy.viewmodel.UserDetailsViewModel
+
 
 class UserDeatails : AppCompatActivity() {
 
@@ -35,8 +37,10 @@ class UserDeatails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-        val phoneNumber = sharedPreferences.getString("user_phone", null)
+
+        var sharedPreferencesManager=SharedPreferencesManager.getInstance(this)
+
+        val phoneNumber = sharedPreferencesManager.getPhoneNumber(PrefrenceKey.USER_PHONE)
         if (phoneNumber == null) {
             // If no phone number found in SharedPreferences, redirect to login screen
             val intent = Intent(this, LoginLaunchActivity::class.java)
@@ -91,16 +95,18 @@ class UserDeatails : AppCompatActivity() {
 
             logOut.setOnClickListener {
 
-                val editor = sharedPreferences.edit()
-                editor.clear()
-                editor.apply()
+//                SharedPreferencesManager.clearSharedPrefernce()
+                sharedPreferencesManager.clearSharedPrefernce()
 
                 // Mark the first time so that LoginLaunch Activity not show
-                getSharedPreferences("logOut", MODE_PRIVATE).edit()
-                    .putBoolean("isFirstTime", false)
-                    .apply()
+                sharedPreferencesManager.saveLoginStatus(PrefrenceKey.LOGIN_LOGOUT_STATUS,false)
 
+                val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("logout","out").apply()
                 var intent = Intent(this@UserDeatails, LoginLaunchActivity::class.java)
+//                intent.putExtra("logout","out")
+
                 startActivity(intent)
                 finish()
 

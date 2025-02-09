@@ -15,6 +15,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.SharedPrefernces.PrefrenceKey
+import com.trainee.project.swiggy.SharedPrefernces.SharedPreferencesManager
 import com.trainee.project.swiggy.viewmodel.UserDetailsViewModel
 
 class UserProfile : AppCompatActivity() {
@@ -56,8 +58,9 @@ class UserProfile : AppCompatActivity() {
 
 
         // Get phone number from SharedPreferences
-        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-        val phoneNumber = sharedPreferences.getString("user_phone", null)
+        var sharedPreferencesManager=SharedPreferencesManager.getInstance(this) // Initialize the SharedPreferencesManager
+
+        val phoneNumber = sharedPreferencesManager.getPhoneNumber(PrefrenceKey.USER_PHONE)
         number.text = phoneNumber
 
         if (phoneNumber != null) {

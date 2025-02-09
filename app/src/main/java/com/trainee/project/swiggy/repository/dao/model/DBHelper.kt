@@ -21,12 +21,8 @@ abstract class DBHelper : RoomDatabase() {
     abstract fun userDao(): UserDao;
 
     abstract fun userSavedLocationDao(): UserSavedLocationDao;
-
     companion object {
         private var INSTANCE: DBHelper? = null
-
-
-
         fun getDatabase(context: Context): DBHelper {
             synchronized(this) {
                 var instance = INSTANCE
@@ -34,20 +30,13 @@ abstract class DBHelper : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         DBHelper::class.java,
-                        "FOOD_DB2"
+                        "FOOD_DB3"
                     ).build()
 
                     INSTANCE = instance
-
                 }
                 return instance
-
             }
-
-
         }
-
-
     }
-
 }

@@ -33,9 +33,6 @@ class LoginLaunchActivity : AppCompatActivity() {
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
 
-        // Check if login first time
-        val logout = getSharedPreferences("logOut", MODE_PRIVATE)
-//         logout.getBoolean("isFirstTime", true)
 
 //        Login button click
         loginBtn.setOnClickListener {
@@ -43,7 +40,10 @@ class LoginLaunchActivity : AppCompatActivity() {
 
             // Validate the phone number length
             if (number.length == 10) {
-
+                val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.clear();
+                editor.apply();
                 val intent = Intent(this@LoginLaunchActivity, OtpVerificationActivity::class.java)
                 intent.putExtra("phone", number)
                 startActivity(intent)
@@ -68,6 +68,12 @@ class LoginLaunchActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
+            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+            val status = sharedPreferences.getString("logout", null)
+            if (!status.isNullOrEmpty()) {
+                val intent = Intent(this@LoginLaunchActivity, MainActivity::class.java)
+                startActivity(intent)
+            }
 
         }
     }

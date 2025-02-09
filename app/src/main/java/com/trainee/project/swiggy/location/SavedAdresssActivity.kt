@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.SharedPrefernces.PrefrenceKey
+import com.trainee.project.swiggy.SharedPrefernces.SharedPreferencesManager
 import com.trainee.project.swiggy.adapter.SavedAddressProfileAdapter
 import com.trainee.project.swiggy.repository.dao.model.model.UserSavedLocationData
 import com.trainee.project.swiggy.viewmodel.UserSavedLocationViewModel
@@ -29,8 +31,10 @@ class SavedAdresssActivity : AppCompatActivity(), SavedProfileAddressListener {
         userViewModel = ViewModelProvider(this)[UserSavedLocationViewModel::class.java]
 
         // Retrieve shared preferences to get user phone number
-        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-        val phoneNumber = sharedPreferences.getString("user_phone", null)
+
+        var sharedPreferencesManager=SharedPreferencesManager.getInstance(this) // Initialize the SharedPreferencesManager
+
+        val phoneNumber = sharedPreferencesManager.getPhoneNumber(PrefrenceKey.USER_PHONE)
 
         // If phone number exists, fetch the saved addresses from the ViewModel
         if (phoneNumber != null) {

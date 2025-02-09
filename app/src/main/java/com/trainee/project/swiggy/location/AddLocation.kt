@@ -18,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.SharedPrefernces.PrefrenceKey
+import com.trainee.project.swiggy.SharedPrefernces.SharedPreferencesManager
 import com.trainee.project.swiggy.adapter.SavedLoactionAdapter
 import com.trainee.project.swiggy.repository.dao.model.model.UserSavedLocationData
 import com.trainee.project.swiggy.view.MainActivity
@@ -44,8 +46,9 @@ class AddLocation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Retrieve shared preferences to get user phone number
-        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-        val phoneNumber = sharedPreferences.getString("user_phone", null)
+        var sharedPreferencesManager=SharedPreferencesManager.getInstance(this) // Initialize the SharedPreferencesManager
+
+        val phoneNumber = sharedPreferencesManager.getPhoneNumber(PrefrenceKey.USER_PHONE)
 
         setContentView(R.layout.activity_add_location)
 
@@ -66,15 +69,20 @@ class AddLocation : AppCompatActivity() {
             locationAdd.visibility = View.GONE
         } else {
             // Set the flag for first-time user
-            getSharedPreferences("logOut", MODE_PRIVATE).edit()
-                .putBoolean("isFirstTime", true)
-                .apply()
+//            SharedPreferencesManager.saveLoginStatus(PrefrenceKey.LOGIN_LOGOUT_STATUS,true)
+            sharedPreferencesManager.saveLoginStatus(PrefrenceKey.LOGIN_LOGOUT_STATUS,true)
+
         }
 
         // Get the current location of the device
-        myLocation.getCurrentLocation()
+        // Get the current location of the device
+        if (isInternetAvailable()) {
+            myLocation.getCurrentLocation()
+        } else {
 
-
+            Toast.makeText(this, "No intenet connection", Toast.LENGTH_SHORT).show()
+//            showNoInternetDialogBox()
+        }
 
         // If phone number exists, fetch the saved addresses from the ViewModel
         if (phoneNumber != null) {
@@ -126,5 +134,13 @@ class AddLocation : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         myLocation.onRequestPermissionsResultMyLocation(requestCode, permissions, grantResults)
+    }
+    private fun isInternetAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork
+        val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+
     }
 }

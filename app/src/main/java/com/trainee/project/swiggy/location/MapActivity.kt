@@ -26,6 +26,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.SharedPrefernces.PrefrenceKey
+import com.trainee.project.swiggy.SharedPrefernces.SharedPreferencesManager
 import com.trainee.project.swiggy.view.MainActivity
 import java.util.Locale
 
@@ -57,8 +59,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, SavedAddressClickLi
         confirmLocationBtn = findViewById(R.id.confirmLocationBtn)
 
         // Get the user phone number from shared preferences
-        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-        val phoneNumber = sharedPreferences.getString("user_phone", null)
+
+        var sharedPreferencesManager=SharedPreferencesManager.getInstance(this)
+
+        val phoneNumber = sharedPreferencesManager.getPhoneNumber(PrefrenceKey.USER_PHONE)
 
         // Initialize the FusedLocationProviderClient to get location data
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -206,4 +210,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, SavedAddressClickLi
         startActivity(intent)
         finishAffinity()
     }
+
+
 }

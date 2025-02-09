@@ -4,15 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.chaos.view.PinView
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.SharedPrefernces.PrefrenceKey
+import com.trainee.project.swiggy.SharedPrefernces.SharedPreferencesManager
 import com.trainee.project.swiggy.location.AddLocation
 import com.trainee.project.swiggy.location.MyLocation
-import com.trainee.project.swiggy.notification.Notification
 import com.trainee.project.swiggy.repository.dao.model.model.UserDeatailsData
 import com.trainee.project.swiggy.view.MainActivity
 import com.trainee.project.swiggy.viewmodel.UserDetailsViewModel
@@ -53,13 +55,11 @@ class OtpVerificationActivity : AppCompatActivity() {
 
                         userViewModel.isPhoneNumberExists(it).observe(this@OtpVerificationActivity) { exists ->
                             if (exists) {
-//                                val intent = Intent(this@OtpVerificationActivity, AddLocation::class.java)
-//                                startActivity(intent)
-                                // Saving the phone number to SharedPreferences
-                                val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-                                val editor = sharedPreferences.edit()
-                                editor.putString("user_phone", it)
-                                editor.apply()
+
+//                                SharedPreferencesManager.savePhoneNumber(PrefrenceKey.USER_PHONE,it)
+                                var sharedPreferencesManager=SharedPreferencesManager.getInstance(this@OtpVerificationActivity) // Initialize the SharedPreferencesManager
+
+                           sharedPreferencesManager.savePhoneNumber(PrefrenceKey.USER_PHONE,it)
                                 finish()
 
                                 if (myLocation.checkPermissions()) {
@@ -75,6 +75,7 @@ class OtpVerificationActivity : AppCompatActivity() {
 
                                 userViewModel.insertUserDetailsViewModel(UserDeatailsData(0, it, "", ""))
 
+                                Log.d("dataaaa" ,it.toString())
                             }
 
                         }

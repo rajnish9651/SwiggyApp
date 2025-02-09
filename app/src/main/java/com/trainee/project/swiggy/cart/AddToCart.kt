@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trainee.project.swiggy.R
+import com.trainee.project.swiggy.SharedPrefernces.PrefrenceKey
+import com.trainee.project.swiggy.SharedPrefernces.SharedPreferencesManager
 import com.trainee.project.swiggy.login.LoginLaunchActivity
 import com.trainee.project.swiggy.repository.dao.model.model.FoodTypeData
 import com.trainee.project.swiggy.view.CartItemListener
@@ -60,8 +62,10 @@ class AddToCart : AppCompatActivity(), CartItemListener {
         loginCart = findViewById(R.id.loginCart)
         orderGif = findViewById(R.id.orderGif)
 
-        val sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE)
-        val phoneNumber = sharedPreferences.getString("user_phone", null)
+
+        var sharedPreferencesManager=SharedPreferencesManager.getInstance(this)
+
+        val phoneNumber = sharedPreferencesManager.getPhoneNumber(PrefrenceKey.USER_PHONE)
 
         viewModel = ViewModelProvider(this)[FoodViewModel::class.java]
 

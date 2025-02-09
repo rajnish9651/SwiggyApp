@@ -31,59 +31,58 @@ class MyLocation(
         LocationServices.getFusedLocationProviderClient(context)
 
     fun getCurrentLocation() {
-
-        if (isLocationEnabled()) {
-
-
-            if (checkPermissions()) {
-
-                fusedLocationClient.lastLocation.addOnCompleteListener { task ->
-
-                    val location: Location? = task.result
-
-                    location?.let {
-
-                        Log.d("cityy", it.latitude.toString())
-                        Log.d("cityy", it.longitude.toString())
-
-                        // get city name from latitude and longitude
-                        val city = getCityName(it.latitude, it.longitude)
-
-                    } ?: run {
-                        // if location is null
-                        Toast.makeText(context, "Null location received", Toast.LENGTH_SHORT).show()
-                        Log.d("cityy", "null reciever")
+        if(isNetworkAvailable()){
+            if (isLocationEnabled()) {
+                if (checkPermissions()) {
+                    fusedLocationClient.lastLocation.addOnCompleteListener { task ->
+                        try {
+                            val location: Location? = task.result
+                            location?.let {
+                                getCityName(it.latitude, it.longitude)
+                            } ?: run {
+                                Toast.makeText(context, "Null location received", Toast.LENGTH_SHORT).show()
+                            }
+                        } catch (e: Exception) {
+                            Log.e("MyLocation", "Error fetching location", e)
+                        }
                     }
 
+                } else {
+                    requestPermissions()
                 }
 
             } else {
-                requestPermissions()
+                enableLocation()
             }
-
-        } else {
-
-            enableLocation()
         }
-
-
     }
 
-    private fun getCityName(latitude: Double, longitude: Double): String? {
+    private fun getCityName(latitude: Double, longitude: Double) {
+        try {
+            // Check if network is available before attempting to use Geocoder
+            if (isNetworkAvailable()) {
+                val geoCoder = Geocoder(context, Locale.getDefault())
+                val address = geoCoder.getFromLocation(latitude, longitude, 1)
 
-        val geoCoder = Geocoder(context, Locale.getDefault())
-        val address = geoCoder.getFromLocation(latitude, longitude, 1)
+                if (address != null && address.isNotEmpty()) {
+                    val fulladdress = address[0].getAddressLine(0) ?: address[0].subAdminArea
+                    val blockOrsector = address[0].subLocality ?: address[0].subAdminArea
 
-        var fulladdress = address?.get(0)?.getAddressLine(0) ?: address?.get(0)?.subAdminArea
-        var blockOrsector = address?.get(0)?.subLocality ?: address?.get(0)?.subAdminArea
-
-        context.getSharedPreferences("user_loc", MODE_PRIVATE)
-            .edit()
-            .putString("currentAddress", fulladdress)
-            .putString("blockOrSector", blockOrsector)
-            .apply()
-        return address?.get(0)?.getAddressLine(0) ?: address?.get(0)?.subAdminArea
-
+                    // Save the address in SharedPreferences
+                    context.getSharedPreferences("user_loc", MODE_PRIVATE)
+                        .edit()
+                        .putString("currentAddress", fulladdress)
+                        .putString("blockOrSector", blockOrsector)
+                        .apply()
+                } else {
+                    Log.e("MyLocation", "No address found for coordinates: $latitude, $longitude")
+                }
+            } else {
+                Log.e("MyLocation", "Network unavailable, unable to perform geocoding")
+            }
+        } catch (e: Exception) {
+            Log.e("MyLocation", "Unexpected error occurred", e)
+        }
     }
 
     // function to request permissions
@@ -170,6 +169,11 @@ class MyLocation(
         builder.create().show()
     }
 
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetworkInfo
+        return activeNetwork != null && activeNetwork.isConnected
+    }
 
     companion object {
         val PERMISSION_REQUEST_ACCESS_LOCATION = 100

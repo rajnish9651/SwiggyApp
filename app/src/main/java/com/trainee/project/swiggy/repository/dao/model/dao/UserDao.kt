@@ -11,7 +11,7 @@ import com.trainee.project.swiggy.repository.dao.model.model.UserDeatailsData
 @Dao
 interface UserDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserDao(user: UserDeatailsData)
 
 
